@@ -63,6 +63,7 @@ const Hero = () => {
               </svg>
             </a>
           </div>
+          <p className="text-white/60 text-xs">Testing GitHub Actions</p>
         </div>
 
         {/* Right — plant image */}
