@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_DIST_ID }}
 
     steps:
     - name: Checkout code
@@ -45,10 +47,11 @@ jobs:
           --cache-control "no-cache, no-store, must-revalidate"
 
     - name: Invalidate CloudFront cache
-      if: ${{ secrets.CLOUDFRONT_DIST_ID != '' }}
-      env:
-        CLOUDFRONT_DIST_ID: ${{ secrets.CLOUDFRONT_DIST_ID }}
       run: |
-        aws cloudfront create-invalidation \
-          --distribution-id $CLOUDFRONT_DIST_ID \
-          --paths "/*"
+        if [ -n "$CLOUDFRONT_DIST_ID" ]; then
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUDFRONT_DIST_ID \
+            --paths "/index.html"
+        else
+          echo "CloudFront distribution ID not set, skipping invalidation"
+        fi
