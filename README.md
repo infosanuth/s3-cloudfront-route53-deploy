@@ -1,8 +1,12 @@
-# React App — S3 + CloudFront Deploy
+# React App S3 + CloudFront Deploy
 
 **Live site:** https://d1uzz6njie6b8j.cloudfront.net/
 
 A React app deployed to AWS via GitHub Actions.
+
+## Architecture Diagram
+
+![Architecture Diagram](docs/architecture-diagram.png)
 
 ## Getting Started
 
